@@ -9,19 +9,26 @@
  */
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
-        return getDepth(root);
-        
-    }
-    int getDepth(TreeNode* root) {
-        if(root == NULL) {
-            return 0;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        TreeNode* root1 = root;
+        TreeNode* root2 = root;
+        while(root1 == root2) {
+            root = root1;
+            if(p->val > root1->val) {
+                root1 = root1->right;
+            }
+            else if(root1->val > p->val){
+                root1 = root1->left;
+            }
+            
+            if(q->val > root2->val) {
+                root2 = root2->right;
+            }
+            else if(root2->val > q->val){
+                root2 = root2->left;
+            }
         }
-        
-        int depth1 = getDepth(root -> left);
-        int depth2 = getDepth(root -> right);
-        int depth = depth1>depth2?depth1:depth2;
-        return depth+1;
+        return root;
         
     }
 };
